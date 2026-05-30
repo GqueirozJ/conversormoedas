@@ -1,57 +1,196 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  font-family: "Roboto Mono", monospace;
-  min-height: 400px;
-  background-color: #ffc107;
-  background-size: 100vh;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #f0f2f5; 
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 .container {
-  text-align: center;
-  padding: 20px;
-  height: 100vh;
+    text-align: center;
+    padding: 40px 30px;
+    background: #ffffff; 
+    border-radius: 16px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
 }
 
 .page-title {
-  color: #212121;
-  margin: 0 0 5px;
+    color: #1a1a1a;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .page-subtitle {
-  color: #212121;
-  margin-top: 5px;
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
 }
 
-.page-logo {
-  width: 200px;
+.cotacoes-box {
+    background-color: #e8f0fe; 
+    border: 1px solid #d2e3fc;
+    color: #1967d2; 
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
 }
 
-.alura-logo {
-  width: 40px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.resumo-box {
+    background-color: #f8f9fa;
+    border: 1px dashed #ccc;
+    color: #444;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    text-align: center;
 }
 
-input {
-  margin: 12px;
-  padding: 6px;
-  border-radius: 5px;
+.data-atualizacao {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #5c7cfa;
+    border-top: 1px solid #d2e3fc;
+    padding-top: 8px;
+    text-align: right;
+    font-style: italic;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 label {
-  color: black;
+    color: #444;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* NOVO: Alterado para aceitar input[type="text"] */
+input[type="text"], select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: white;
+    font-family: inherit;
+    color: #333;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #1a73e8; 
 }
 
 button {
-  margin-top: 12px;
-  padding: 4px 8px;
-  border-radius: 10px;
-  background: #ffffff;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    background: #1a73e8; 
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
-h2 {
-  color: #212121;
-  font-size: 30px;
+button:hover {
+    background: #1557b0;
+}
+
+.pergunta-moeda {
+    font-size: 1.1rem;
+    color: #1a73e8;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    text-align: left;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn-voltar {
+    background: #f1f3f4;
+    color: #5f6368;
+    margin-top: 5px;
+}
+
+.btn-voltar:hover {
+    background: #e8eaed;
+    color: #202124;
+}
+
+#areaResultados {
+    margin-top: 25px;
+    text-align: left; 
+}
+
+#areaResultados h2 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+}
+
+#areaResultados h2:last-child {
+    border-bottom: none;
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+    .page-title {
+        font-size: 1.5rem;
+    }
 }

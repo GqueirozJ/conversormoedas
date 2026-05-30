@@ -1,58 +1,64 @@
-<div class="container">
-  <h1 class="page-title">
-    Conversor de moedas
-  </h1>
-  <link href ="https://gqueirozj.github.io/conversormoedas/style.css" rel="stylesheet"/>
-  <script>
-    function Converter() {
-  var valorElemento = document.getElementById("valorEmReais");
-  var valor = valorElemento.value;
-  var valorEmRealNumerico = parseFloat(valor);
-  if (valor === "") {
-    return alert("Digite um valor!");
-  } else if (valor <= 0) {
-    return (document.getElementById("valorConvertidoEmLibra").innerHTML =
-      "Digite um valor maior que 0!");
-  }
-  var valorEmDolarNumerico = valorEmRealNumerico * 0.17;
-  var valorEmLibraNumerico = valorEmRealNumerico * 0.16;
-  var valorEmBitCoinNumerico = valorEmRealNumerico * 0.1;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Conversor de Moedas Global</title>
+  <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container">
+    
+    <h1 class="page-title">💱 Conversor Global</h1>
+    <p class="page-subtitle">Dólar, Euro, Libra, Iene, Yuan e Real</p>
+    
+    <div id="painelCotacoes" class="cotacoes-box">
+       <p>Carregando mercado financeiro...</p>
+    </div>
 
-  var rasultadoDolar = valorEmDolarNumerico.toFixed(2);
-  var resultadoLibra = valorEmLibraNumerico.toFixed(2);
-  var resultadoBitCoin = valorEmBitCoinNumerico.toFixed(2);
+    <div id="etapa1">
+        <div class="input-group">
+            <label for="moedaOrigem">Eu tenho (Moeda de Origem):</label>
+            <select id="moedaOrigem">
+                <option value="BRL">🇧🇷 Real Brasileiro (R$)</option>
+                <option value="USD">🇺🇸 Dólar Americano (US$)</option>
+                <option value="EUR">🇪🇺 Euro (€)</option>
+                <option value="GBP">🇬🇧 Libra Esterlina (£)</option>
+                <option value="JPY">🇯🇵 Iene Japonês (¥)</option>
+                <option value="CNY">🇨🇳 Yuan Chinês (¥)</option>
+            </select>
+        </div>
 
-  var elementoValorConvertidoEmDolar = document.getElementById(
-    "valorConvertidoEmDolar"
-  );
-  var elementoValorConvertidoEmLibra = document.getElementById(
-    "valorConvertidoEmLibra"
-  );
-  var elementoValorConvertidoEmBitCoin = document.getElementById(
-    "valorConvertidoEmBitCoin"
-  );
-  var valorConvertidoEmDolar =
-    "R$" + valorEmRealNumerico + " vale $" + rasultadoDolar + "!";
-  var valorConvertidoEmLibra =
-    "R$" + valorEmRealNumerico + " vale £" + resultadoLibra + "!";
-  var valorConvertidoEmBitcoin =
-    "R$" + valorEmRealNumerico + " vale " + resultadoBitCoin + " BitCoins !";
-  elementoValorConvertidoEmDolar.innerHTML = valorConvertidoEmDolar;
-  elementoValorConvertidoEmLibra.innerHTML = valorConvertidoEmLibra;
-  elementoValorConvertidoEmBitCoin.innerHTML = valorConvertidoEmBitcoin;
-}
-  </script>
-  <p class="page-subtitle">
-    Descubra os valores em Dolar U$, Libra £ e em BitCoin
-  </p>
-  <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-conversor-de-moedas.svg" class="page-logo" alt=""><br><br>
-  <label for="moeda">Insira o valor em Reais R$</label><br>
-  <input type="number" id="valorEmReais" size="2" /><br>
-  <button type="submit" onclick="Converter()">Converter</button>
-  <h2 id="valorBranco"></h2>
-  <h2 id="valorConvertidoEmDolar"></h2>
-  <h2 id="valorConvertidoEmLibra"></h2>
-  <h2 id="valorConvertidoEmBitCoin"></h2>
-</div>
-<a href="https://alura.com.br/" target="_blank">
-  <img src="https://www.alura.com.br/assets/img/home/alura-logo.svg" alt="" class="alura-logo">
+        <div class="input-group">
+            <label for="valorInput">Digite o valor:</label>
+            <input type="text" id="valorInput" inputmode="numeric" placeholder="0,00" oninput="mascaraDinheiro(this)" />
+        </div>
+        <button type="button" onclick="avancarParaEtapa2()">Escolher Destinos</button>
+    </div>
+
+    <div id="etapa2" style="display: none;">
+        
+        <div id="resumoOperacao" class="resumo-box"></div>
+
+        <label class="pergunta-moeda">Quero converter para:</label>
+        
+        <div class="checkbox-group">
+            <label id="labelCheckBRL"><input type="checkbox" id="checkBRL"> 🇧🇷 Real Brasileiro</label>
+            <label id="labelCheckUSD"><input type="checkbox" id="checkUSD" checked> 🇺🇸 Dólar Americano</label>
+            <label id="labelCheckEUR"><input type="checkbox" id="checkEUR" checked> 🇪🇺 Euro</label>
+            <label id="labelCheckGBP"><input type="checkbox" id="checkGBP"> 🇬🇧 Libra Esterlina</label>
+            <label id="labelCheckJPY"><input type="checkbox" id="checkJPY"> 🇯🇵 Iene Japonês</label>
+            <label id="labelCheckCNY"><input type="checkbox" id="checkCNY"> 🇨🇳 Yuan Chinês</label>
+        </div>
+
+        <button type="button" onclick="calcularEExibir()">Ver Resultados</button>
+        <button type="button" onclick="voltarEtapa1()" class="btn-voltar">← Voltar e alterar valor</button>
+    </div>
+    
+    <div id="areaResultados"></div>
+    
+  </div>
+
+  <script src="script.js"></script> 
+</body>
+</html>
