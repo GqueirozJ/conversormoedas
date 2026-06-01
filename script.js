@@ -4,6 +4,18 @@ let cotacaoLibra = 0;
 let cotacaoIene = 0;
 let cotacaoYuan = 0;
 
+// --- FUNÇÃO DO TEMA ESCURO ---
+function alternarTema() {
+    document.body.classList.toggle("dark-mode");
+    
+    let btnTema = document.getElementById("btnTema");
+    if (document.body.classList.contains("dark-mode")) {
+        btnTema.innerHTML = "☀️ Claro";
+    } else {
+        btnTema.innerHTML = "🌙 Escuro";
+    }
+}
+
 async function buscarCotacoesDoDia() {
     const url = 'https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,JPY-BRL,CNY-BRL';
     
@@ -38,32 +50,23 @@ async function buscarCotacoesDoDia() {
 
 buscarCotacoesDoDia();
 
-// --- NOVA FUNÇÃO: Máscara de Dinheiro em Tempo Real ---
+// --- MÁSCARA MONETÁRIA ---
 function mascaraDinheiro(elemento) {
-    // 1. Remove tudo que não for dígito numérico
     let valorCru = elemento.value.replace(/\D/g, "");
-    
     if (valorCru === "") {
         elemento.value = "";
         return;
     }
-    
-    // 2. Divide por 100 para criar os centavos (Ex: 100099 vira 1000.99)
     let valorNumerico = parseFloat(valorCru) / 100;
-    
-    // 3. Formata para o padrão brasileiro (1.000,99) e joga de volta na tela
     elemento.value = new Intl.NumberFormat('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }).format(valorNumerico);
 }
 
-// --- FUNÇÃO AUXILIAR: Transforma "1.000,99" do texto de volta para 1000.99 do computador ---
 function lerValorDigitado() {
     let valorTexto = document.getElementById("valorInput").value;
     if (valorTexto === "") return NaN;
-    
-    // Tira os pontos separadores de milhar e troca a vírgula dos centavos por ponto
     let valorLimpo = valorTexto.replace(/\./g, "").replace(",", ".");
     return parseFloat(valorLimpo);
 }
@@ -78,14 +81,12 @@ function avancarParaEtapa2() {
     } else if (valorNumerico <= 0) {
         return alert("Erro: O valor a ser convertido deve ser maior que zero!");
     }
-    
     if (cotacaoDolar === 0) {
         return alert("Aguarde um segundo para as cotações carregarem...");
     }
 
     let valorFormatado = new Intl.NumberFormat('pt-BR', { 
-        style: 'currency', 
-        currency: moedaOrigem 
+        style: 'currency', currency: moedaOrigem 
     }).format(valorNumerico);
 
     document.getElementById("resumoOperacao").innerHTML = `Valor a converter: <strong>${valorFormatado}</strong>`;
@@ -111,7 +112,7 @@ function voltarEtapa1() {
     document.getElementById("areaResultados").innerHTML = "";
 }
 
-// --- LÓGICA MATEMÁTICA MULTIMOEDAS ---
+// --- LÓGICA DE CONVERSÃO ---
 function calcularEExibir() {
     var valorOriginal = lerValorDigitado();
     var moedaOrigem = document.getElementById("moedaOrigem").value;
@@ -149,27 +150,15 @@ function calcularEExibir() {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: siglaMoeda }).format(valor);
     };
 
-    if (checkBRL) {
-        criarLinhaResultado("🇧🇷 Real: " + formatarMoedaFinal(valorEmReais, 'BRL'));
-    }
-    if (checkUSD) {
-        let resUSD = valorEmReais / cotacaoDolar;
-        criarLinhaResultado("🇺🇸 Dólar: " + formatarMoedaFinal(resUSD, 'USD'));
-    }
-    if (checkEUR) {
-        let resEUR = valorEmReais / cotacaoEuro;
-        criarLinhaResultado("🇪🇺 Euro: " + formatarMoedaFinal(resEUR, 'EUR'));
-    }
-    if (checkGBP) {
-        let resGBP = valorEmReais / cotacaoLibra;
-        criarLinhaResultado("🇬🇧 Libra: " + formatarMoedaFinal(resGBP, 'GBP'));
-    }
-    if (checkJPY) {
-        let resJPY = valorEmReais / cotacaoIene;
-        criarLinhaResultado("🇯🇵 Iene: " + formatarMoedaFinal(resJPY, 'JPY'));
-    }
-    if (checkCNY) {
-        let resCNY = valorEmReais / cotacaoYuan;
-        criarLinhaResultado("🇨🇳 Yuan: " + formatarMoedaFinal(resCNY, 'CNY'));
-    }
+    if (checkBRL) { criarLinhaResultado("🇧🇷 Real: " + formatarMoedaFinal(valorEmReais, 'BRL')); }
+    if (checkUSD) { criarLinhaResultado("🇺🇸 Dólar: " + formatarMoedaFinal(valorEmReais / cotacaoDolar, 'USD')); }
+    if (checkEUR) { criarLinhaResultado("🇪🇺 Euro: " + formatarMoedaFinal(valorEmReais / cotacaoEuro, 'EUR')); }
+    if (checkGBP) { criarLinhaResultado("🇬🇧 Libra: " + formatarMoedaFinal(valorEmReais / cotacaoLibra, 'GBP')); }
+    if (checkJPY) { criarLinhaResultado("🇯🇵 Iene: " + formatarMoedaFinal(valorEmReais / cotacaoIene, 'JPY')); }
+    if (checkCNY) { criarLinhaResultado("🇨🇳 Yuan: " + formatarMoedaFinal(valorEmReais / cotacaoYuan, 'CNY')); }
+
+    // ROLAGEM AUTOMÁTICA
+    setTimeout(() => {
+        areaResultados.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
 }

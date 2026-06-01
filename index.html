@@ -9,7 +9,11 @@
 <body>
   <div class="container">
     
-    <h1 class="page-title">💱 Conversor Global</h1>
+    <div class="header-topo">
+        <h1 class="page-title">💱 Conversor</h1>
+        <button id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+    </div>
+    
     <p class="page-subtitle">Dólar, Euro, Libra, Iene, Yuan e Real</p>
     
     <div id="painelCotacoes" class="cotacoes-box">
@@ -33,7 +37,7 @@
             <label for="valorInput">Digite o valor:</label>
             <input type="text" id="valorInput" inputmode="numeric" placeholder="0,00" oninput="mascaraDinheiro(this)" />
         </div>
-        <button type="button" onclick="avancarParaEtapa2()">Escolher Destinos</button>
+        <button type="button" class="btn-principal" onclick="avancarParaEtapa2()">Escolher Destinos</button>
     </div>
 
     <div id="etapa2" style="display: none;">
@@ -51,7 +55,7 @@
             <label id="labelCheckCNY"><input type="checkbox" id="checkCNY"> 🇨🇳 Yuan Chinês</label>
         </div>
 
-        <button type="button" onclick="calcularEExibir()">Ver Resultados</button>
+        <button type="button" class="btn-principal" onclick="calcularEExibir()">Ver Resultados</button>
         <button type="button" onclick="voltarEtapa1()" class="btn-voltar">← Voltar e alterar valor</button>
     </div>
     
